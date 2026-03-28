@@ -5,20 +5,23 @@ void InitBoard(LeaderBoard *LB, int capacity){
     LB -> size = 0;
     LB -> capacity = capacity;
 }
-void destroy(LeaderBoard *LB){
+void Destroy(LeaderBoard *LB){
     delete [] LB -> elements;
+    LB -> elements = nullptr;
+    LB -> size = 0;
+    LB -> capacity = 0;
 }
 //查询大小
-int size(LeaderBoard *LB){
+int Size(LeaderBoard *LB){
     return LB -> size;
 }
 //判断是否为空顺序表
-bool isEmpty(LeaderBoard *LB){
+bool IsEmpty(LeaderBoard *LB){
     return LB -> size == 0;
 }
 
 //插入
-void insert(LeaderBoard *LB, int index, Player element){
+void Insert(LeaderBoard *LB, int index, Player element){
     //插入值不合法
     //注意插入值可以在末尾，其他都不行
     if(index < 0 || index > LB -> size){
@@ -35,8 +38,8 @@ void insert(LeaderBoard *LB, int index, Player element){
         LB -> elements = newElements;
         LB -> capacity = newCapacity;
     }
-    //将所有大于等于index的数向后挪动一位
-    for(int i = LB -> size; i >= index; i--){
+    //将所有大于index的数向后挪动一位
+    for(int i = LB -> size; i > index; i--){
         LB -> elements[i] = LB -> elements[i - 1];
     }
     LB -> elements[index] = element;
