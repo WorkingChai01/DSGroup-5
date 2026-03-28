@@ -1,5 +1,5 @@
 #include "purge_Sq.h"
-#include<string>
+#include <string>
 
 void purge_Sq(LeaderBoard* LB) {
 	//为空指针或者元素个数小于等于1时无需去重
