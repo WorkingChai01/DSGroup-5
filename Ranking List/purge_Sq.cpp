@@ -3,7 +3,7 @@
 
 void purge_Sq(LeaderBoard* LB) {
 	//为空指针或者元素个数小于等于1时无需去重
-	if (LB == nullptr || LB->size <= 0)
+	if (LB == nullptr || LB->size <= 1)
 		return;
 	//定义有效边界k,k为下一个元素要插入的位置
 	int k = 0;
