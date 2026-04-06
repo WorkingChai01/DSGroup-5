@@ -28,6 +28,7 @@ int main() {
     LeaderBoard LB;
     InitBoard(&LB, 10);
     LoadFromTxt(&LB, DB_FILE);
+    purge_Sq(&LB);
     //载入标准测试数据
     if (IsEmpty(&LB)) {
         updateRank(&LB, "Alice", 90, 2);
@@ -36,10 +37,9 @@ int main() {
     int choice;
     do {
         cout << "\n1. Show Rank\n2. Add Player\n3. Demo\n4. Save & Exit\nChoice: ";
-        // 简单有效的输入检查
         if (!(cin >> choice)) {
             cin.clear();
-            cin.ignore(1000, '\n'); // 丢弃非法输入
+            cin.ignore(1000, '\n');
             continue;
         }
         switch (choice) {
@@ -50,7 +50,7 @@ int main() {
                 updateRank(&LB, "Catherine", 85, 10);
                 PrintBoard(&LB); 
                 break;
-            case 4: SaveToTxt(&LB, DB_FILE); break;
+            case 4: SaveToTxt(&LB, DB_FILE); purge_Sq(&LB); break;
             default: cout << "Invalid." << endl;
         }
     } while (choice != 4);
