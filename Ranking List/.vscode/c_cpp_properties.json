@@ -1,0 +1,24 @@
+// .vscode/c_cpp_properties.json
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/include", // 明确指定头文件目录
+                "${workspaceFolder}/src"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            // 删除 compilerPath，让插件自动从环境变量查找 g++
+            // 如果必须指定，可以留空，或者让用户自己在 UI 界面设置
+            "compilerPath": "", 
+            "cStandard": "c17",
+            "cppStandard": "gnu++17", // 建议升级到 c++17 以支持更多特性
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}

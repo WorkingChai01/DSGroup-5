@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <ctime> 
+#include <ctime>
+#include <fstream>
 using namespace std;
 
 struct Player {
@@ -33,5 +34,7 @@ bool IsEmpty(LeaderBoard* LB);
 void Insert(LeaderBoard* LB, int index, Player element);
 //输出
 void PrintBoard(const LeaderBoard* LB);
-
+//拓展数据库部分
+void LoadFromTxt(LeaderBoard* LB, const string& filename);
+void SaveToTxt(const LeaderBoard* LB, const string& filename);
 #endif

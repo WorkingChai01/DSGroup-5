@@ -1,0 +1,35 @@
+// .vscode/tasks.json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe 构建项目",
+            "command": "g++", // 改为命令名，依赖环境变量，或保留路径但建议用变量
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                // 关键：指定头文件搜索路径，使用相对工作区的路径
+                "-I", "${workspaceFolder}/include",
+                // 关键：显式列出所有源文件，确保链接在一起
+                "${workspaceFolder}/src/main.cpp",
+                "${workspaceFolder}/src/SequentialList.cpp",
+                "${workspaceFolder}/src/updateRank.cpp",
+                "${workspaceFolder}/src/purge_Sq.cpp",
+                "-o",
+                "${workspaceFolder}/RankingList.exe" // 输出到根目录，方便查找
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}" // 在工作区根目录执行命令
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "编译器: g++"
+        }
+    ]
+}
