@@ -1,73 +1,62 @@
 #include "updateRank.h"
-#include <algorithm>
-#include <iostream>
-using namespace std;
+#include <algorithm>  
 
-int Search(LeaderBoard *LB, const string& playerName) {
-    for (int i = 0; i < LB->size; i++) {
-        if (LB->elements[i].name == playerName) {
+// 1. 查找(Search)：遍历数组检查玩家是否存在
+int Search(LeaderBoard *LB, const string& playerName){
+    for(int i = 0; i < LB->size; i++){
+        if(LB->elements[i].name == playerName){
             return i;
         }
     }
     return -1;
 }
 
-bool Compare(Player a, Player b) {
-    if (a.score != b.score) return a.score > b.score;
-    if (a.subs != b.subs) return a.subs < b.subs;
-    return a.timestamp < b.timestamp;
-}
-
-void Update(LeaderBoard *LB, int index, int newScore, int newSubs) {
-    static int timeCounter = 0;
-    if (index >= 0 && index < LB->size) {
-        if (newScore > LB->elements[index].score) {
+// 2. 更新(Update)：若存在且分数更高，则原地覆盖
+void Update(LeaderBoard *LB, int index, int newScore, int newSubs){
+    if(index >= 0 && index < LB->size){
+        if(newScore > LB->elements[index].score){
             LB->elements[index].score = newScore;
             LB->elements[index].subs = newSubs;
-            LB->elements[index].timestamp = ++timeCounter;
-        } else if (newScore == LB->elements[index].score && newSubs < LB->elements[index].subs) {
-            LB->elements[index].subs = newSubs;
-            LB->elements[index].timestamp = ++timeCounter;
         }
     }
 }
 
-void Maintain(LeaderBoard *LB, int index) {
-    for (int i = index; i > 0; i--) {
-        if (Compare(LB->elements[i], LB->elements[i - 1])) {
-            swap(LB->elements[i], LB->elements[i - 1]);
+// 3. 维护(Maintain)：采用插入排序思想，通过swap确保有序
+void Maintain(LeaderBoard *LB, int index){
+    // 向前冒泡到正确位置（保持分数降序）
+    for(int i = index; i > 0; i--){
+        if(LB->elements[i].score > LB->elements[i-1].score){
+            std::swap(LB->elements[i], LB->elements[i-1]);
         } else {
             break;
         }
     }
 }
 
-void Insert(LeaderBoard *LB, int pos, const Player& newPlayer) {
-    if (LB->size >= 100) {
-        cout << "排行榜已满！" << endl;
-        return;
-    }
-    for (int i = LB->size; i > pos; i--) {
-        LB->elements[i] = LB->elements[i - 1];
-    }
-    LB->elements[pos] = newPlayer;
-    LB->size++;
-}
-
-void updateRank(LeaderBoard *LB, const string& playerName, int newScore, int newSubs) {
-    static int timeCounter = 0;
+// 核心算法：查找-更新-维护
+void updateRank(LeaderBoard *LB, const string& playerName, int newScore, int newSubs){
+    // 1. 查找(Search)
     int playerIndex = Search(LB, playerName);
-    if (playerIndex != -1) {
+    
+    if(playerIndex != -1){
+        // 玩家存在
+        // 2. 更新(Update)
         Update(LB, playerIndex, newScore, newSubs);
+        
+        // 3. 维护(Maintain)
         Maintain(LB, playerIndex);
-    } else {
-        timeCounter++;
-        Player newPlayer(playerName, newScore, newSubs, timeCounter);
+    } 
+    else {
+        // 玩家不存在，插入新玩家
+        Player newPlayer(playerName, newScore, newSubs);
+        
+        // 找到插入位置（保持有序）
         int insertPos = 0;
-        while (insertPos < LB->size && Compare(LB->elements[insertPos], newPlayer)) {
+        while(insertPos < LB->size && LB->elements[insertPos].score > newScore){
             insertPos++;
         }
+        
+        // 调用已有的Insert函数插入新玩家
         Insert(LB, insertPos, newPlayer);
     }
 }
-
