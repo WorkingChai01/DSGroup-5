@@ -1,4 +1,4 @@
-#include <SequentialList.h>
+#include "SequentialList.h"
 //初始化计分板
 void InitBoard(LeaderBoard *LB, int capacity){
     LB -> elements = new Player[capacity];

@@ -17,4 +17,12 @@ struct LeaderBoard{
     int capacity;
 };
 
+void InitBoard(LeaderBoard *LB, int capacity);
+void Destroy(LeaderBoard *LB);
+//查询大小
+int Size(LeaderBoard *LB);
+//判断是否为空顺序表
+bool IsEmpty(LeaderBoard *LB);
+//插入
+void Insert(LeaderBoard *LB, int index, Player element);
 #endif
