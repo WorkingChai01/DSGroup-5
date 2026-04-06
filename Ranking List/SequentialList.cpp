@@ -45,3 +45,24 @@ void Insert(LeaderBoard *LB, int index, Player element){
     LB -> elements[index] = element;
     LB -> size++;
 }
+//输出
+void PrintBoard(const LeaderBoard* LB){
+    if (!LB || !LB->elements) {
+        std::cout << "Board is empty." << std::endl;
+        return;
+    }
+    std::cout << "---------------------------------------------" << std::endl;
+    std::cout << std::left << std::setw(4) << "Rank" 
+              << std::setw(12) << "Name" 
+              << std::setw(8) << "Score" 
+              << "Subs" << std::endl;
+    std::cout << "---------------------------------------------" << std::endl;
+    
+    for (int i = 0; i < LB->size; ++i) {
+        std::cout << std::left << std::setw(4) << (i + 1) 
+                  << std::setw(12) << LB->elements[i].name 
+                  << std::setw(8) << LB->elements[i].score 
+                  << LB->elements[i].subs << std::endl;
+    }
+    std::cout << "---------------------------------------------" << std::endl;
+}

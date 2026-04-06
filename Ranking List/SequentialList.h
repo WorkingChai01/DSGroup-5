@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 struct Player{
@@ -25,4 +26,6 @@ int Size(LeaderBoard *LB);
 bool IsEmpty(LeaderBoard *LB);
 //插入
 void Insert(LeaderBoard *LB, int index, Player element);
+//输出
+void PrintBoard(const LeaderBoard* LB);
 #endif

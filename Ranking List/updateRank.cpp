@@ -1,7 +1,7 @@
 #include "updateRank.h"
 #include <algorithm>  
 
-// 1. 查找(Search)：遍历数组检查玩家是否存在
+// 查找
 int Search(LeaderBoard *LB, const string& playerName){
     for(int i = 0; i < LB->size; i++){
         if(LB->elements[i].name == playerName){
@@ -11,7 +11,7 @@ int Search(LeaderBoard *LB, const string& playerName){
     return -1;
 }
 
-// 2. 更新(Update)：若存在且分数更高，则原地覆盖
+// 更新
 void Update(LeaderBoard *LB, int index, int newScore, int newSubs){
     if(index >= 0 && index < LB->size){
         if(newScore > LB->elements[index].score){
@@ -21,13 +21,16 @@ void Update(LeaderBoard *LB, int index, int newScore, int newSubs){
     }
 }
 
-// 3. 维护(Maintain)：采用插入排序思想，通过swap确保有序
+// 维护
 void Maintain(LeaderBoard *LB, int index){
-    // 向前冒泡到正确位置（保持分数降序）
+    //分数降序，subs升序
     for(int i = index; i > 0; i--){
         if(LB->elements[i].score > LB->elements[i-1].score){
             std::swap(LB->elements[i], LB->elements[i-1]);
-        } else {
+        }else if(LB->elements[i].score > LB->elements[i-1].score){
+            if(LB->elements[i].subs < LB->elements[i-1].subs)
+            std::swap(LB->elements[i], LB->elements[i-1]);
+        }else{
             break;
         }
     }
