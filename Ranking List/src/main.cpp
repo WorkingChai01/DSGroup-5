@@ -1,6 +1,4 @@
 #include <iostream>
-#include <windows.h>
-#include <unistd.h>
 #include "SequentialList.h"
 #include "updateRank.h"
 #include "purge_Sq.h"
@@ -56,6 +54,5 @@ int main() {
     } while (choice != 4);
 
     Destroy(&LB);
-    system("pause");
     return 0;
 }
